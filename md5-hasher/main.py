@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import re
 import hashlib
+from tqdm import tqdm
 
 import string
 from itertools import product
@@ -10,12 +11,10 @@ print(len(string.printable))
 prod2 = product(string.printable, repeat=2)
 prod3 = product(string.printable, repeat=3)
 mapping = {}
-count = 0
-for i in list(prod2) + list(string.printable) + list(prod3):
+
+for i in tqdm(list(prod2) + list(string.printable) + list(prod3)):
     three_bytes = ''.join(i)
     mapping[str(hashlib.md5(bytes(three_bytes, 'ascii')).hexdigest())] = three_bytes
-    count += 1
-print(count)
 
 question = input('> ')
 
